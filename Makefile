@@ -28,6 +28,10 @@ generate-resume-short-pdf-SRE: build-image createOut
 	docker run --rm -u $(id -u ${USER}):$(id -g ${USER}) -v $(MOUNT) -w $(WORKDIR) $(RESUME_BUILD_IMAGE_NAME):latest \
 		/bin/bash -c "pdflatex  -synctex=1 -interaction=nonstopmode -file-line-error -recorder -output-directory=${OUT_DIR} jparas-sre-resume.tex; cd out; find . -type f ! -name '*.pdf' -delete"
 
+generate-resume-short-pdf-SRE-debug: build-image createOut 
+	docker run --rm -u $(id -u ${USER}):$(id -g ${USER}) -v $(MOUNT) -w $(WORKDIR) $(RESUME_BUILD_IMAGE_NAME):latest \
+		/bin/bash -c "pdflatex  -synctex=1 -interaction=nonstopmode -file-line-error -recorder -output-directory=${OUT_DIR} jparas-sre-resume.tex;"
+
 #TODO: Do this next
 #generate-resume-short-pdf-SRE: build-image createOut 
 #	docker run --rm -u $(id -u ${USER}):$(id -g ${USER}) -v $(MOUNT) -w $(WORKDIR) $(RESUME_BUILD_IMAGE_NAME):latest \
