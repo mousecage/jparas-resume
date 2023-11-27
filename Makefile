@@ -3,7 +3,7 @@ OUT_DIR = "./out"
 WORKDIR = /resume
 MOUNT = .:/resume
 
-all: build-image clean createOut generate-resume-short-pdf-SE
+all: build-image clean createOut generate-resume-short-pdf-SE generate-resume-short-pdf-SRE
 
 build-image:
 	if [[ "$(docker images -q ${RESUME_BUILD_IMAGE_NAME}:latest 2> /dev/null)" == "" ]]; then \
@@ -23,6 +23,10 @@ generate-resume-short-pdf-SE: build-image createOut
 generate-resume-short-pdf-SE-debug: build-image createOut 
 	docker run --rm -u $(id -u ${USER}):$(id -g ${USER}) -v $(MOUNT) -w $(WORKDIR) $(RESUME_BUILD_IMAGE_NAME):latest \
 		/bin/bash -c "pdflatex  -synctex=1 -interaction=nonstopmode -file-line-error -recorder -output-directory=${OUT_DIR} jparas-se-resume.tex;"
+
+generate-resume-short-pdf-SRE: build-image createOut 
+	docker run --rm -u $(id -u ${USER}):$(id -g ${USER}) -v $(MOUNT) -w $(WORKDIR) $(RESUME_BUILD_IMAGE_NAME):latest \
+		/bin/bash -c "pdflatex  -synctex=1 -interaction=nonstopmode -file-line-error -recorder -output-directory=${OUT_DIR} jparas-sre-resume.tex; cd out; find . -type f ! -name '*.pdf' -delete"
 
 #TODO: Do this next
 #generate-resume-short-pdf-SRE: build-image createOut 
