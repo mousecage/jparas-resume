@@ -6,8 +6,10 @@ MOUNT = .:/resume
 all: build-image clean createOut generate-resume-short-pdf-SE
 
 build-image:
-	docker build -t $(RESUME_BUILD_IMAGE_NAME):latest .
-
+	if [[ "$(docker images -q ${RESUME_BUILD_IMAGE_NAME}:latest 2> /dev/null)" == "" ]]; then \
+		docker build -t $(RESUME_BUILD_IMAGE_NAME):latest .; \
+	fi 
+	
 clean:
 	rm -rf ./$(OUT_DIR)
 
