@@ -5,7 +5,7 @@ mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 current_dir := $(abspath $(patsubst %/,%,$(dir $(mkfile_path))))
 MOUNT = "$(abspath $(patsubst %/,%,$(dir $(mkfile_path)))):/resume"
 
-MYID := "-u $(shell id -u ${USER}):$(shell id -g ${USER})"
+MYID := -u $(shell id -u ${USER}):$(shell id -g ${USER})
 OS := $(shell uname)
 
 ifeq ($(OS), Darwin)
