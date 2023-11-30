@@ -12,3 +12,4 @@
 *.bbl
 *.xmpi
 out/
+vscode-out/
