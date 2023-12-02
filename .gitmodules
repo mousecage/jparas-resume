@@ -1,0 +1,4 @@
+[submodule "company-list"]
+	path = company-list
+	url = git@github.com:mousecage/company-list.git
+	branch = master
